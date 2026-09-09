@@ -1,0 +1,45 @@
+@model IEnumerable<Venue>
+@{
+    ViewData["Title"] = "Venues";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Venues</h1>
+    <a asp-action="Create" class="btn btn-primary">+ New Venue</a>
+</div>
+
+<form asp-action="Index" method="get" class="row g-2 mb-3">
+    <div class="col-auto">
+        <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Search by name or location..." />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-secondary">Search</button>
+        <a asp-action="Index" class="btn btn-link">Clear</a>
+    </div>
+</form>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+@foreach (var item in Model)
+{
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <img src="@item.ImageUrl" class="card-img-top" alt="@item.VenueName" onerror="this.src='https://picsum.photos/seed/fallback/600/400'" />
+            <div class="card-body">
+                <h5 class="card-title">@item.VenueName</h5>
+                <p class="card-text mb-1"><strong>Location:</strong> @item.Location</p>
+                <p class="card-text"><strong>Capacity:</strong> @item.Capacity</p>
+            </div>
+            <div class="card-footer bg-white d-flex justify-content-between">
+                <a asp-action="Details" asp-route-id="@item.VenueId" class="btn btn-sm btn-outline-secondary">Details</a>
+                <a asp-action="Edit" asp-route-id="@item.VenueId" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.VenueId" class="btn btn-sm btn-outline-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+}
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-muted mt-3">No venues found.</p>
+}

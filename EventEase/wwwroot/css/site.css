@@ -1,0 +1,12 @@
+.card-img-top {
+  height: 180px;
+  object-fit: cover;
+}
+
+.navbar-brand {
+  letter-spacing: 0.5px;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
